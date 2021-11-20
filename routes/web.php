@@ -11,20 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/series', function(){
-    $series = [
-        'GOT',
-        'TWD',
-        'FTWD'
-    ];
-    $html = "<ul>";
-    foreach ($series as $serie){
-        $html .= "<li>$serie</li>";
-    }
-    $html .= "</ul>";
-   return $html;
-});
+Route::get('/series', 'SeriesController@index')->name('listar_series');
+Route::get('/series/adicionar', 'SeriesController@create')->name('form_criar_serie');
+Route::post('/series/adicionar', 'SeriesController@store')->name('criar_serie');
+Route::delete('/series/{id}', 'SeriesController@destroy')->name('remover_serie');
